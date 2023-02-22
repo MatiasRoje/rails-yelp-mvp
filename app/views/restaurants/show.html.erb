@@ -1,0 +1,24 @@
+<%= render "restaurants/navbar" %>
+
+<h1> <%= @restaurant.name %></h1>
+<p> <%= @restaurant.address %> </p>
+<p> <%= @restaurant.category %> </p>
+
+<h3>Reviews of this restaurant</h3>
+<% if @restaurant.reviews.empty? %>
+  <p><%= "There is still no reviews for this restaurant. Add one!" %></p>
+  <% else %>
+  <ul>
+<% @restaurant.reviews.each do |review| %>
+  <p> <%= review.content %></p>
+  <p> <%= review.rating %></p>
+<% end  %>
+</ul>
+<% end %>
+
+<h6>Leave a new review</h6>
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :content %>
+  <%= f.input :rating %>
+  <%= f.submit "Submit review", class: "btn btn-primary" %>
+<% end %>
